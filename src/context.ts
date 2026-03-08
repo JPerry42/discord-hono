@@ -122,8 +122,10 @@ export class Context<
       case 5: {
         const modalRows = interaction.data?.components
         if (modalRows)
-          // @ts-expect-error
-          for (const row of modalRows) for (const modal of row.components) this.set(modal.custom_id, modal.value)
+          for (const row of modalRows) {
+            // @ts-expect-error
+            for (const modal of row.components ?? [row.component]) this.set(modal.custom_id, modal.value)
+          }
       }
       case 3:
         // with case 5
